@@ -11,6 +11,6 @@ export default function(config) {
 	app.use(express.static(config.webServer.folder));
 
 	server.listen(config.webServer.port, () =>
-		console.log(`web server running on port ${config.webServer.port}`));
+		console.log(`web server running on port ${config.webServer.port}!!!`));
 
 }
