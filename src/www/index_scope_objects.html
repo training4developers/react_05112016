@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<title>Welcome to Introduction to JavaScript, React & Angular</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.js"></script>
+		<style>
+
+			.ng-scope {
+				border: 1px solid red;
+				margin:5px;
+				padding:5px;
+			}
+
+		</style>
+	</head>
+
+	<body>
+		<div ng-app="MyApp">
+			Scope Id: {{$id}}<br>
+			Message {{message}}
+			<div ng-controller="MyCtrl">
+				Scope Id: {{$id}}
+				<div ng-controller="MyCtrl">
+					Scope Id: {{$id}}
+				</div>
+				<input type="checkbox" ng-model="showMe">
+				<div ng-if="showMe">
+					<div ng-controller="MyCtrl">
+						Scope Id: {{$id}}
+						<div ng-controller="MyCtrl">
+							Scope Id: {{$id}}
+						</div>
+						<div ng-controller="MyCtrl">
+							Scope Id: {{$id}}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div ng-controller="MyCtrl">
+				Scope Id: {{$id}}
+				<div ng-controller="MyCtrl">
+					Scope Id: {{$id}}
+				</div>
+				<div ng-controller="MyCtrl">
+					Scope Id: {{$id}}
+					Message {{message}}
+				</div>
+			</div>
+			<div ng-controller="MyCtrl">
+				Scope Id: {{$id}}
+			</div>
+			<div ng-controller="MyCtrl">
+				Scope Id: {{$id}}
+				<div ng-controller="MyCtrl">
+					Scope Id: {{$id}}
+				</div>
+				<div ng-controller="MyCtrl">
+					Scope Id: {{$id}}
+				</div>
+			</div>
+			<div ng-controller="MyCtrl">
+				Scope Id: {{$id}}
+			</div>
+		</div>
+
+		<script>
+
+			angular.module("MyApp", [])
+				.controller("MyCtrl", function($scope) {
+					console.log("controller ran, scope id: ", $scope.$id);
+
+					$scope.$on("$destroy", function() {
+						console.log("scope is being destroyed");
+					});
+
+				})
+				.run(function($rootScope) {
+					console.dir($rootScope);
+					$rootScope.message = "Almost 4:45pm...";
+				});
+
+		</script>
+	</body>
+
+</html>

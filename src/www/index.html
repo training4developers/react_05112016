@@ -4,11 +4,79 @@
 
 	<head>
 		<title>Welcome to Introduction to JavaScript, React & Angular</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.js"></script>
+		<style>
+
+			.ng-scope {
+				border: 1px solid red;
+				margin:5px;
+				padding:5px;
+			}
+
+		</style>
 	</head>
 
 	<body>
-		<main></main>
-		<script src="js/index.js"></script>
+		<div ng-app="MyApp">
+			<div ng-controller="MyCtrl">
+				{{message | adpUpperCase | adpStringAppend:'!!!!!'}}<br>
+				{{message}}
+			</div>
+			<div my-dir></div>
+		</div>
+
+		<script>
+
+			angular.module("MyApp", [])
+				.directive("myDir", function() {
+
+					// directive definition object
+					return {
+						template: "{{differentMessage}}",
+						// postLink function
+						link: function(scope, element, attrs, ctrl, transclude) {
+							//element.html("Hello World!");
+							scope.differentMessage = "Almost time to go...";
+						}
+					}
+
+
+				})
+				.factory("logger", function() {
+
+					console.log("logger ran");
+
+					return {
+						log: function(msg) {
+							console.log(msg);
+						}
+					};
+
+
+				})
+				.filter("adpUpperCase", function(logger) {
+
+					return function(value) {
+						logger.log("uppercase filter");
+						return String(value).toUpperCase(value);
+					};
+
+				})
+				.filter("adpStringAppend", function(logger) {
+
+					return function(value, strToAppend) {
+						logger.log("stringappend filter");
+						return String(value) + String(strToAppend);
+					}
+
+				})
+				.controller("MyCtrl", function($scope, logger) {
+					$scope.message = "hi class";
+					logger.log("this is cool!");
+
+				});
+
+		</script>
 	</body>
 
 </html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<title>Welcome to Introduction to JavaScript, React & Angular</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.js"></script>
+		<style>
+
+			.ng-scope {
+				border: 1px solid red;
+				margin:5px;
+				padding:5px;
+			}
+
+		</style>
+	</head>
+
+	<body>
+		<div ng-app="MyApp">
+			Parent Message {{o.message}}<br>
+			Parent Message <input ng-model="o.message" type="text">
+			<div ng-controller="MyCtrl">
+				Child Message {{o.message}}<br>
+				Child Message <input ng-model="o.message" type="text">
+		</div>
+
+		<script>
+
+			angular.module("MyApp", [])
+				.controller("MyCtrl", function($scope, $rootScope) {
+					$rootScope.o = {}; 
+
+				});
+
+		</script>
+	</body>
+
+</html>

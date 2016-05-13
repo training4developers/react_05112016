@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<title>Welcome to Introduction to JavaScript, React & Angular</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.js"></script>
+	</head>
+
+	<body>
+		<div ng-app="MyApp">
+			<div ng-controller="MyCtrl">
+				{{message}}<br>
+				Color Filter: <input ng-model='colorFilter'>
+				<ul>
+					<li ng-repeat="color in colors | filter:colorFilter | orderBy:'toString()'">{{color}}</li>
+				</ul>
+				<br>
+				<input ng-model='newColor' type='text'>
+				<button onclick='addColor()'>Add Color</button>
+
+				<input ng-model="showMe" type="checkbox">Show Me
+				<div ng-if='showMe'>
+					You can see me!
+				</div>
+
+
+			</div>
+		</div>
+
+		<script>
+
+			angular.module("MyApp", [])
+				.controller("MyCtrl", function($scope) {
+
+					$scope.colors = ['red','green','yellow','orange','blue','purple','brown','white','black'];
+
+					window.addColor = function() {
+						$scope.$apply(function() {
+							$scope.colors.push($scope.newColor);
+						});
+						console.dir($scope.colors);
+					};
+
+					$scope.widgets = [
+						{ name: 'Widget 1', size: 'large' },
+						{ name: 'Widget 2', size: 'small' },
+						{ name: 'Widget 3', size: 'medium' }
+					];
+
+					$scope.message = "Hi Class!";
+
+					// $scope.$watch(function() {
+					// 	console.log("$digest loop ran");
+					//
+					// 	var count = 1000000000;
+					//
+					// 	while(count--) {
+					// 		var t=count;
+					// 	}
+					// });
+				});
+
+		</script>
+	</body>
+
+</html>
